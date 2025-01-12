@@ -6,7 +6,7 @@ import { Calendar, MapPin, Music, Theater, Users, ArrowRight, Star, Ticket } fro
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
+      <header className="px-4 lg:px-6 h-14 flex items-center justify-center">
         <Link className="flex items-center justify-center" href="#">
           <MapPin className="h-6 w-6" />
           <span className="ml-2 text-2xl font-bold">MinaçuEventos</span>
@@ -28,8 +28,8 @@ export default function LandingPage() {
       </header>
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-black text-white">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
+          <div className="container px-4 md:px-6 mx-auto flex flex-col items-center justify-center">
+            <div className="space-y-4 text-center">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
                   Descubra Minaçu através de seus eventos
@@ -38,8 +38,8 @@ export default function LandingPage() {
                   Sua plataforma completa de bilheteria digital. Encontre e participe de eventos públicos e particulares em Minaçu.
                 </p>
               </div>
-              <div className="w-full max-w-sm space-y-2">
-                <form className="flex space-x-2">
+              <div className="w-full space-y-2">
+                <form className="flex space-x-2 justify-center">
                   <Input className="max-w-lg flex-1 bg-white text-black" placeholder="Pesquisar eventos" type="text" />
                   <Button type="submit">Buscar</Button>
                 </form>
@@ -47,10 +47,11 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-          <div className="container px-4 md:px-6">
+          <div className="container px-4 md:px-6 mx-auto">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">Categorias de Eventos</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-center">
               <div className="flex flex-col items-center space-y-2 border p-4 rounded-lg">
                 <Music className="h-12 w-12 text-primary" />
                 <h3 className="text-xl font-bold">Música</h3>
@@ -74,10 +75,11 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
         <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
+          <div className="container px-4 md:px-6 mx-auto">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">Eventos em Destaque</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="border rounded-lg overflow-hidden">
                   <img
@@ -110,10 +112,11 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-          <div className="container px-4 md:px-6">
+          <div className="container px-4 md:px-6 mx-auto">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">Por que escolher MinaçuEventos?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
               <div className="flex flex-col items-center text-center">
                 <Star className="h-12 w-12 text-primary mb-4" />
                 <h3 className="text-xl font-bold mb-2">Eventos de Qualidade</h3>
@@ -132,27 +135,27 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
         <section className="w-full py-12 md:py-24 lg:py-32 bg-black text-white">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                  Não perca nenhum evento em Minaçu
-                </h2>
-                <p className="mx-auto max-w-[600px] text-gray-300 md:text-xl">
-                  Cadastre-se agora e fique por dentro de todos os eventos da cidade!
-                </p>
-              </div>
-              <div className="w-full max-w-sm space-y-2">
-                <form className="flex flex-col space-y-2">
-                  <Input className="max-w-lg flex-1 bg-white text-black" placeholder="Seu melhor e-mail" type="email" />
-                  <Button type="submit" className="w-full">Cadastrar</Button>
-                </form>
-              </div>
+          <div className="container px-4 md:px-6 mx-auto flex flex-col items-center justify-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                Não perca nenhum evento em Minaçu
+              </h2>
+              <p className="mx-auto max-w-[600px] text-gray-300 md:text-xl">
+                Cadastre-se agora e fique por dentro de todos os eventos da cidade!
+              </p>
+            </div>
+            <div className="w-full max-w-sm space-y-2">
+              <form className="flex flex-col space-y-2 justify-center">
+                <Input className="max-w-lg flex-1 bg-white text-black" placeholder="Seu melhor e-mail" type="email" />
+                <Button type="submit" className="w-full">Cadastrar</Button>
+              </form>
             </div>
           </div>
         </section>
       </main>
+
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
         <p className="text-xs text-gray-500">© 2024 MinaçuEventos. Todos os direitos reservados.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
@@ -167,4 +170,3 @@ export default function LandingPage() {
     </div>
   )
 }
-

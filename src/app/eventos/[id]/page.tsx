@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Calendar, Clock, MapPin, Ticket, Info, AlertTriangle, ThumbsUp, Users, Utensils, Music } from 'lucide-react'
+import { Calendar, Clock, MapPin, Ticket, Info, AlertTriangle, ThumbsUp } from 'lucide-react'
 
 export default function EventoDetalhesPage({ params }: { params: { id: string } }) {
   const [selectedTicket, setSelectedTicket] = useState('')

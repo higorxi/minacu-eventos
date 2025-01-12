@@ -26,9 +26,9 @@ export default function EventosPage() {
     { id: 6, nome: "Feira Gastronômica", categoria: "social", data: "10/09/2024", local: "Avenida Principal" },
   ]
 
-  const eventosFiltrados = filtroCategoria
-    ? eventos.filter(evento => evento.categoria === filtroCategoria)
-    : eventos
+  const eventosFiltrados = filtroCategoria === "all" || !filtroCategoria
+  ? eventos
+  : eventos.filter(evento => evento.categoria === filtroCategoria);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -42,21 +42,22 @@ export default function EventosPage() {
           </Button>
         </form>
         <Select value={filtroCategoria} onValueChange={setFiltroCategoria}>
-          <SelectTrigger className="w-full md:w-[180px]">
-            <SelectValue placeholder="Categoria" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="">Todas as categorias</SelectItem>
-            {categorias.map(categoria => (
-              <SelectItem key={categoria.value} value={categoria.value}>
-                <div className="flex items-center">
-                  <categoria.icon className="mr-2 h-4 w-4" />
-                  {categoria.label}
-                </div>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+  <SelectTrigger className="w-full md:w-[180px]">
+    <SelectValue placeholder="Categoria" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="all">Todas as categorias</SelectItem>
+    {categorias.map(categoria => (
+      <SelectItem key={categoria.value} value={categoria.value}>
+        <div className="flex items-center">
+          <categoria.icon className="mr-2 h-4 w-4" />
+          {categoria.label}
+        </div>
+      </SelectItem>
+    ))}
+  </SelectContent>
+</Select>
+
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
