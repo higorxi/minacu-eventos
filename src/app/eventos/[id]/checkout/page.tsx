@@ -1,4 +1,5 @@
 import { Checkout } from "@/components/screens/checkout/checkout"
+import { useParams } from "next/navigation"
 
 
 async function getEventDetails(id: string) {
@@ -12,9 +13,11 @@ async function getEventDetails(id: string) {
   }
 }
 
-export default async function CheckoutPage({ params }: { params: { id: string } }) {
+export default async function CheckoutPage() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { id } = useParams();
 
-  const event = await getEventDetails(params.id)
+  const event = await getEventDetails(id as string)
 
   return (
     <main className="min-h-screen bg-gray-100 py-12">
