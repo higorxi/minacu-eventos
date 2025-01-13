@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import Footer from "@/components/footer";
 import Image from "next/image";
-import Header from "@/components/header";
 import ImageCarousel from "@/components/image-carrosel";
 
 export default function LandingPage() {
@@ -35,9 +34,8 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
       <main className="flex-1">
-        <section className="w-full px-4 py-12 md:py-24 lg:py-24 xl:py-36 bg-white text-black">
+        <section className="w-full px-4 py-12 md:py-18 lg:py-18 bg-white text-black">
           {/* Título da seção */}
           <div className="text-center mb-8">
             <h2 className="text-3xl font-semibold text-primary sm:text-4xl lg:text-5xl">

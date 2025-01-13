@@ -20,7 +20,6 @@ import {
 } from "lucide-react";
 import Footer from "@/components/footer";
 import { useParams } from "next/navigation";
-import Header from "@/components/header";
 import ImageGallery from "@/components/image-gallery";
 import Link from "next/link";
 
@@ -79,8 +78,6 @@ export default function EventoDetalhesPage() {
 
   return (
     <div>
-      <Header />
-
       <main className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold mb-6">{evento.nome}</h1>
 
