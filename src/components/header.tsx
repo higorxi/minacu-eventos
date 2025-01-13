@@ -9,7 +9,10 @@ import {
   User,
   Calendar,
   MapPin,
-  Ticket
+  Ticket,
+  LogIn,
+  LogOut,
+  Settings
 } from 'lucide-react';
 import {
   NavigationMenu,
@@ -31,8 +34,8 @@ import Link from 'next/link';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled] = useState(false);
+  const [isLoggedIn] = useState(true);
 
-  // Simula eventos próximos
   const upcomingEvents = [
     { id: 1, name: "Festival de Verão 2025", date: "20 Jan", location: "São Paulo" },
     { id: 2, name: "Show Internacional", date: "15 Fev", location: "Rio de Janeiro" },
@@ -88,7 +91,11 @@ const Header = () => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Explorar</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>
+                    <span className="flex items-center">
+                      Explorar <Search className="ml-2" size={18} />
+                    </span>
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="grid grid-cols-2 gap-4 p-6 w-[500px]">
                       <div>
@@ -141,9 +148,52 @@ const Header = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="ghost" size="icon">
-              <User size={20} />
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <User size={20} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {!isLoggedIn ? (
+                  <>
+                    <DropdownMenuItem>
+                      <Link href="/login" className="flex items-center space-x-2">
+                        <LogIn size={16} /> 
+                        <span>Login</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/signup" className="flex items-center space-x-2">
+                        <LogIn size={16} /> 
+                        <span>Cadastrar-se</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  </>
+                ) : (
+                  <>
+                    <DropdownMenuItem>
+                      <Link href="/meus-ingressos" className="flex items-center space-x-2">
+                        <Ticket size={16} /> 
+                        <span>Meus ingressos</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/configuracoes" className="flex items-center space-x-2">
+                        <Settings size={16} /> 
+                        <span>Configurações</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/logout" className="flex items-center space-x-2">
+                        <LogOut size={16} /> 
+                        <span>Sair</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  </>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <Button>
               <Ticket size={18} className="mr-2" />
@@ -185,14 +235,23 @@ const Header = () => {
                   Categorias
                 </a>
                 <a href="#" className="block px-4 py-2 text-slate-900 hover:bg-slate-50 rounded-lg">
-                  Sua Cidade
+                  Meus Ingressos
                 </a>
                 <a href="#" className="block px-4 py-2 text-slate-900 hover:bg-slate-50 rounded-lg">
                   Vender Ingressos
                 </a>
-                <a href="#" className="block px-4 py-2 text-slate-900 hover:bg-slate-50 rounded-lg">
-                  Login
-                </a>
+                {!isLoggedIn ? (
+                  <>
+                    <a href="/login" className="block px-4 py-2 text-slate-900 hover:bg-slate-50 rounded-lg">Login</a>
+                    <a href="/signup" className="block px-4 py-2 text-slate-900 hover:bg-slate-50 rounded-lg">Cadastrar-se</a>
+                  </>
+                ) : (
+                  <>
+                    <a href="/meus-ingressos" className="block px-4 py-2 text-slate-900 hover:bg-slate-50 rounded-lg">Meus Ingressos</a>
+                    <a href="/configuracoes" className="block px-4 py-2 text-slate-900 hover:bg-slate-50 rounded-lg">Configurações</a>
+                    <a href="/logout" className="block px-4 py-2 text-slate-900 hover:bg-slate-50 rounded-lg">Sair</a>
+                  </>
+                )}
               </nav>
             </div>
           </div>
@@ -200,6 +259,6 @@ const Header = () => {
       )}
     </header>
   );
-};
+}
 
 export default Header;

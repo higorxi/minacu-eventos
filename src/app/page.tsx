@@ -1,6 +1,7 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Calendar,
   MapPin,
@@ -14,73 +15,43 @@ import {
 import Footer from "@/components/footer";
 import Image from "next/image";
 import Header from "@/components/header";
+import ImageCarousel from "@/components/image-carrosel";
 
 export default function LandingPage() {
+  const eventImages = [
+    {
+      id: "image-1",
+      url: "https://public.baladapp.com.br/site/banner/465/arquivo/52cfb5a1844840258e67928b039fb5e8.png",
+    },
+    {
+      id: "image-2",
+      url: "https://public.baladapp.com.br/site/banner/477/arquivo/d5b3f402761e666ae8e21453def79e8d.jpg",
+    },
+    {
+      id: "image-3",
+      url: "https://public.baladapp.com.br/site/banner/476/arquivo/d4fcf493984e56b45989a94a390c1b37.jpg",
+    },
+  ];
+
   return (
     <div className="flex flex-col min-h-screen">
-      <Header/>
+      <Header />
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-black text-white">
-          <div className="container px-4 md:px-6 mx-auto flex flex-col items-center justify-center">
-            <div className="space-y-4 text-center">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Descubra Minaçu através de seus eventos
-                </h1>
-                <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl">
-                  Sua plataforma completa de bilheteria digital. Encontre e
-                  participe de eventos públicos e particulares em Minaçu.
-                </p>
-              </div>
-              <div className="w-full space-y-2">
-                <form className="flex space-x-2 justify-center">
-                  <Input
-                    className="max-w-lg flex-1 bg-white text-black"
-                    placeholder="Pesquisar eventos"
-                    type="text"
-                  />
-                  <Button type="submit">Buscar</Button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-          <div className="container px-4 md:px-6 mx-auto">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">
-              Categorias de Eventos
+        <section className="w-full px-4 py-12 md:py-24 lg:py-24 xl:py-36 bg-white text-black">
+          {/* Título da seção */}
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-semibold text-primary sm:text-4xl lg:text-5xl">
+              Próximos Eventos
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-center">
-              <div className="flex flex-col items-center space-y-2 border p-4 rounded-lg">
-                <Music className="h-12 w-12 text-primary" />
-                <h3 className="text-xl font-bold">Música</h3>
-                <p className="text-sm text-gray-500 text-center">
-                  Shows, festivais e apresentações musicais
-                </p>
-              </div>
-              <div className="flex flex-col items-center space-y-2 border p-4 rounded-lg">
-                <Theater className="h-12 w-12 text-primary" />
-                <h3 className="text-xl font-bold">Teatro</h3>
-                <p className="text-sm text-gray-500 text-center">
-                  Peças teatrais e espetáculos
-                </p>
-              </div>
-              <div className="flex flex-col items-center space-y-2 border p-4 rounded-lg">
-                <Users className="h-12 w-12 text-primary" />
-                <h3 className="text-xl font-bold">Eventos Sociais</h3>
-                <p className="text-sm text-gray-500 text-center">
-                  Festas, encontros e celebrações
-                </p>
-              </div>
-              <div className="flex flex-col items-center space-y-2 border p-4 rounded-lg">
-                <Calendar className="h-12 w-12 text-primary" />
-                <h3 className="text-xl font-bold">Eventos Públicos</h3>
-                <p className="text-sm text-gray-500 text-center">
-                  Comemorações cívicas e municipais
-                </p>
-              </div>
-            </div>
+            <p className="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">
+              Não perca os eventos mais esperados! Confira as opções incríveis
+              que preparamos para você.
+            </p>
+          </div>
+
+          {/* Carrossel de imagens */}
+          <div className="w-full">
+            <ImageCarousel images={eventImages} />
           </div>
         </section>
 
@@ -130,7 +101,14 @@ export default function LandingPage() {
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">
               Por que escolher MinaçuEventos?
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
+            <div className="text-center mb-8">
+              <p className="text-lg text-gray-600 mb-6">
+                MinaçuEventos oferece a melhor curadoria de eventos para
+                garantir experiências únicas e memoráveis. Confira os motivos
+                para confiar em nossos serviços:
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center mb-8">
               <div className="flex flex-col items-center text-center">
                 <Star className="h-12 w-12 text-primary mb-4" />
                 <h3 className="text-xl font-bold mb-2">Eventos de Qualidade</h3>
@@ -155,6 +133,40 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
+
+            <h3 className="text-2xl font-bold text-center mb-6">
+              Atuamos em diversos segmentos:
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-center">
+              <div className="flex flex-col items-center space-y-2 border p-4 rounded-lg">
+                <Music className="h-12 w-12 text-primary" />
+                <h3 className="text-xl font-bold">Música</h3>
+                <p className="text-sm text-gray-500 text-center">
+                  Shows, festivais e apresentações musicais
+                </p>
+              </div>
+              <div className="flex flex-col items-center space-y-2 border p-4 rounded-lg">
+                <Theater className="h-12 w-12 text-primary" />
+                <h3 className="text-xl font-bold">Teatro</h3>
+                <p className="text-sm text-gray-500 text-center">
+                  Peças teatrais e espetáculos
+                </p>
+              </div>
+              <div className="flex flex-col items-center space-y-2 border p-4 rounded-lg">
+                <Users className="h-12 w-12 text-primary" />
+                <h3 className="text-xl font-bold">Eventos Sociais</h3>
+                <p className="text-sm text-gray-500 text-center">
+                  Festas, encontros e celebrações
+                </p>
+              </div>
+              <div className="flex flex-col items-center space-y-2 border p-4 rounded-lg">
+                <Calendar className="h-12 w-12 text-primary" />
+                <h3 className="text-xl font-bold">Eventos Públicos</h3>
+                <p className="text-sm text-gray-500 text-center">
+                  Comemorações cívicas e municipais
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -171,11 +183,11 @@ export default function LandingPage() {
             </div>
             <div className="w-full max-w-sm space-y-2">
               <form className="flex flex-col space-y-2 justify-center">
-              <input
-                type="email"
-                placeholder="Seu melhor e-mail"
-                className="flex-1 px-4 py-2 mb-2 rounded bg-slate-100 border border-slate-700 focus:outline-none focus:border-blue-500"
-              />
+                <input
+                  type="email"
+                  placeholder="Seu melhor e-mail"
+                  className="flex-1 px-4 py-2 mb-2 rounded bg-slate-100 border border-slate-700 focus:outline-none focus:border-blue-500"
+                />
                 <Button type="submit" className="w-full">
                   Cadastrar
                 </Button>
