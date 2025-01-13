@@ -1,19 +1,6 @@
-"use client"
-
 import { Checkout } from "@/components/screens/checkout/checkout"
-import { useRouter } from "next/router"
-import React, { useEffect, useState } from "react"
 
-interface Event {
-  id: string
-  name: string
-  date: string
-  time: string
-  location: string
-  description: string
-}
-
-async function getEventDetails(id: string): Promise<Event> {
+async function getEventDetails(id: string) {
   return {
     id,
     name: "Festival de Música Verão 2023",
@@ -24,25 +11,10 @@ async function getEventDetails(id: string): Promise<Event> {
   }
 }
 
-export default function CheckoutPage() {
-  const router = useRouter()
-  const { id } = router.query
+export default async function CheckoutPage() {
+  const id = '2'
 
-  const [event, setEvent] = useState<Event | undefined>(undefined)
-
-  useEffect(() => {
-    if (id) {
-      async function fetchEventDetails() {
-        const eventData = await getEventDetails(id as string)
-        setEvent(eventData)
-      }
-      fetchEventDetails()
-    }
-  }, [id])
-
-  if (!event) {
-    return <div>Carregando...</div>
-  }
+  const event = await getEventDetails(id)
 
   return (
     <main className="min-h-screen bg-gray-100 py-12">
