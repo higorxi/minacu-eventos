@@ -21,9 +21,15 @@ export default function UserProfile() {
     name: "João Silva",
     avatar: "/placeholder.svg?height=100&width=100",
     cover: "/placeholder.svg?height=300&width=1000",
-    activeSince: "01/01/2023"
+    activeSince: "01/01/2023",
+    email: 'higorgiovane7@gmail.com',
+    phone: '62985194415',
+    bio: 'O brabo dos ingressos',
+    location: 'Minaçu',
+    website: 'https://portfolio-ahage.vercel.app/',
   }
 
+  
   const handleLogout = () => {
     // Implement logout logic here
     console.log("Logout clicked")
