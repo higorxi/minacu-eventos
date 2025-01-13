@@ -165,7 +165,7 @@ export default function EventoDetalhesPage() {
                   </div>
                 ))}
               </div>
-              <Link href={`${window.location.pathname}/checkout/${evento.id}`} passHref>
+              <Link href={`${window.location.pathname}/checkout`} passHref>
               <Button className="w-full mt-4" disabled={!selectedTicket}>
                 Comprar Ingresso
               </Button>
