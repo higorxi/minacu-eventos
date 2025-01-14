@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { NextApiRequest, NextApiResponse } from 'next';
-
+import bcrypt from 'bcryptjs'; // Adicionando o bcrypt para hashing da senha
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -15,11 +15,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'User already exists' });
     }
 
-    // Cria o usuário
+    // Hash da senha antes de salvar
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Cria o usuário com a senha hashada
     const user = await prisma.user.create({
       data: {
         email,
-        password, // Aqui você deve fazer o hash da senha antes de salvar no banco!
+        password: hashedPassword, // Armazenando a senha hashada
       },
     });
 
