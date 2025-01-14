@@ -122,30 +122,30 @@ const Header = () => {
                           Categorias
                         </h3>
                         <div className="space-y-2">
-                          <a
-                            href="#"
+                          <Link
+                            href="/eventos"
                             className="block text-slate-600 hover:text-blue-600"
                           >
                             Shows e Festivais
-                          </a>
-                          <a
-                            href="#"
+                          </Link>
+                          <Link
+                            href="/eventos"
                             className="block text-slate-600 hover:text-blue-600"
                           >
                             Teatro e Cultura
-                          </a>
-                          <a
-                            href="#"
+                          </Link>
+                          <Link
+                            href="/eventos"
                             className="block text-slate-600 hover:text-blue-600"
                           >
                             Esportes
-                          </a>
-                          <a
-                            href="#"
+                          </Link>
+                          <Link
+                            href="/eventos"
                             className="block text-slate-600 hover:text-blue-600"
                           >
                             Workshops
-                          </a>
+                          </Link>
                         </div>
                       </div>
                       <div>
@@ -153,9 +153,9 @@ const Header = () => {
                           Próximos Eventos
                         </h3>
                         {upcomingEvents.map((event) => (
-                          <a
+                          <Link
                             key={event.id}
-                            href="#"
+                            href={`/eventos/${event.id}`}
                             className="block mb-3 group"
                           >
                             <div className="flex items-start">
@@ -172,7 +172,7 @@ const Header = () => {
                                 </p>
                               </div>
                             </div>
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -181,10 +181,12 @@ const Header = () => {
               </NavigationMenuList>
             </NavigationMenu>
 
+            <Link href='/eventos'>
             <Button variant="ghost">
               <MapPin size={18} className="mr-2" />
               Minaçu, GO
             </Button>
+            </Link>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
