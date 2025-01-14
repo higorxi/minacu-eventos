@@ -14,6 +14,7 @@ import {
 import { Calendar, MapPin, Search, Music, Theater, Users } from "lucide-react";
 import Footer from "@/components/footer";
 import Image from "next/image";
+import Header from "@/components/header";
 
 const categorias = [
   { value: "musica", label: "Música", icon: Music },
@@ -77,7 +78,8 @@ export default function EventosPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="container mx-auto px-4 py-8 flex-grow">
+      <Header/>
+      <div className="container mx-auto px-4 py-8 flex-grow mt-16">
         <h1 className="text-3xl font-bold mb-8">Eventos em Minaçu</h1>
 
         <div className="mb-8 flex flex-col md:flex-row gap-4">

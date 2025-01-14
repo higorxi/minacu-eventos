@@ -22,6 +22,7 @@ import Footer from "@/components/footer";
 import { useParams } from "next/navigation";
 import ImageGallery from "@/components/image-gallery";
 import Link from "next/link";
+import Header from "@/components/header";
 
 export default function EventoDetalhesPage() {
   const [selectedTicket, setSelectedTicket] = useState("");
@@ -77,8 +78,9 @@ export default function EventoDetalhesPage() {
   };
 
   return (
-    <div>
-      <main className="container mx-auto px-4 py-8">
+    <div className="flex flex-col min-h-screen">
+      <Header/>
+      <main className="container mx-auto px-4 py-8 mt-16">
         <h1 className="text-4xl font-bold mb-6">{evento.nome}</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

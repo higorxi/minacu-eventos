@@ -15,6 +15,7 @@ import {
 import Footer from "@/components/footer";
 import Image from "next/image";
 import ImageCarousel from "@/components/image-carrosel";
+import Header from "@/components/header";
 
 export default function LandingPage() {
   const eventImages = [
@@ -34,7 +35,8 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <main className="flex-1">
+      <Header/>
+      <main className="flex-1 mt-16">
         <section className="w-full px-4 py-12 md:py-18 lg:py-18 bg-white text-black">
           {/* Título da seção */}
           <div className="text-center mb-8">
