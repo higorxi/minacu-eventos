@@ -1,6 +1,6 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
@@ -12,6 +12,7 @@ model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
+  tickets   Ticket[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -22,6 +23,35 @@ model Company {
   address   String
   phone     String
   email     String   @unique
+  events    Event[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tickets    Ticket[]
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  name        String
+  date        DateTime
+  location    String
+  description String?
+  companyId   Int
+  company     Company  @relation(fields: [companyId], references: [id])
+  tickets     Ticket[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Ticket {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  eventId   Int
+  event     Event    @relation(fields: [eventId], references: [id])
+  companyId Int
+  company   Company  @relation(fields: [companyId], references: [id])
+  price     Float
+  info      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
