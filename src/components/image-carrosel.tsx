@@ -34,18 +34,18 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
 
   return (
     <div className="relative h-[500px]">
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 ">
         {images.map((image, index) => (
           <Image
-            key={image.id}
-            src={image.url}
-            alt={`Image ${index + 1}`}
-            layout="fill"
-            objectFit="cover"
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentImageIndex ? "opacity-100" : "opacity-0"
-            }`}
-          />
+          key={image.id}
+          src={image.url}
+          alt={`Image ${index + 1}`}
+          layout="fill"
+          objectFit="cover"
+          className={`absolute inset-0 transition-opacity duration-1000 rounded-md shadow-lg ${
+            index === currentImageIndex ? "opacity-100" : "opacity-0"
+          }`}
+        />
         ))}
         <div className="absolute inset-0 bg-black/0"></div>
       </div>

@@ -181,11 +181,14 @@ const Header = () => {
               </NavigationMenuList>
             </NavigationMenu>
 
-            <Link href='/eventos'>
-            <Button variant="ghost">
-              <MapPin size={18} className="mr-2" />
-              Minaçu, GO
-            </Button>
+            <Link href="/eventos">
+              <Button
+                variant="ghost"
+                className="border border-blue-500 rounded-md p-2"
+              >
+                <MapPin size={18} className="mr-2" />
+                Minaçu, GO
+              </Button>
             </Link>
 
             <DropdownMenu>
@@ -265,7 +268,7 @@ const Header = () => {
             <Link href="/planos">
               <Button>
                 <Ticket size={18} className="mr-2" />
-                Vender Ingressos
+                Divulgar Evento
               </Button>
             </Link>
           </nav>
@@ -322,7 +325,7 @@ const Header = () => {
                   href="#"
                   className="block px-4 py-2 text-slate-900 hover:bg-slate-50 rounded-lg"
                 >
-                  Vender Ingressos
+                  Divulgar Evento
                 </a>
                 {!isLoggedIn ? (
                   <>

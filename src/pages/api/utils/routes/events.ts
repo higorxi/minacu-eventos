@@ -25,10 +25,10 @@ export const getAllEvents = async (req: NextApiRequest, res: NextApiResponse): P
 // Criar um novo evento
 export const createEvent = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {
-    const { name, date, location, description } = req.body;
+    const { name, date, location, description, companyId } = req.body;
 
     const event = await prisma.event.create({
-      data: { name, date: new Date(date), location, description },
+      data: { name, date: new Date(date), location, description, companyId },
     });
 
     res.status(201).json({ success: true, data: event });

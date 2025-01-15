@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
-} from '@/components/ui/dialog';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { X } from 'lucide-react';
-import Image from 'next/image';
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { X } from "lucide-react";
+import Image from "next/image";
 
 interface ImageGalleryProps {
   images: string[];
@@ -16,7 +16,7 @@ interface ImageGalleryProps {
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images, eventName }) => {
-  const [currentPhoto, setCurrentPhoto] = useState<string>('foto1');
+  const [currentPhoto, setCurrentPhoto] = useState<string>("foto1");
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const hasExtraImages = images.length > 3;
 
@@ -24,7 +24,11 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, eventName }) => {
 
   return (
     <div>
-      <Tabs value={currentPhoto} onValueChange={setCurrentPhoto} className="w-full">
+      <Tabs
+        value={currentPhoto}
+        onValueChange={setCurrentPhoto}
+        className="w-full"
+      >
         {images.slice(0, 3).map((imagem, index) => (
           <TabsContent key={index} value={`foto${index + 1}`}>
             <Image
@@ -36,7 +40,17 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, eventName }) => {
             />
           </TabsContent>
         ))}
-        <TabsList className={`grid w-full grid-cols-${gridCols} mb-8`}>
+        <TabsList
+          className={`grid w-full ${
+            gridCols === 1
+              ? "grid-cols-1"
+              : gridCols === 2
+              ? "grid-cols-2"
+              : gridCols === 3
+              ? "grid-cols-3"
+              : "grid-cols-4"
+          } mb-8`}
+        >
           {images.slice(0, 3).map((_, index) => (
             <TabsTrigger key={index} value={`foto${index + 1}`}>
               Foto {index + 1}
@@ -50,7 +64,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, eventName }) => {
               <DialogContent className="max-w-screen-xl w-screen h-screen max-h-screen p-0">
                 {expandedImage ? (
                   <div className="relative w-full h-full bg-black/95">
-                    <button 
+                    <button
                       onClick={() => setExpandedImage(null)}
                       className="absolute top-4 right-4 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white z-10"
                     >
@@ -73,8 +87,8 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, eventName }) => {
                     </DialogHeader>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-6 overflow-y-auto">
                       {images.map((imagem, index) => (
-                        <div 
-                          key={index} 
+                        <div
+                          key={index}
                           className="relative aspect-square cursor-pointer hover:opacity-90 transition-opacity"
                           onClick={() => setExpandedImage(imagem)}
                         >

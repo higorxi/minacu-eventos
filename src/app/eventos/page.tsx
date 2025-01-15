@@ -11,10 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar, MapPin, Search, Music, Theater, Users } from "lucide-react";
+import { Calendar, MapPin, Search, Music, Theater, Users, Lock, Globe, Ticket } from 'lucide-react';
 import Footer from "@/components/footer";
 import Image from "next/image";
 import Header from "@/components/header";
+import { Badge } from "@/components/ui/badge";
+import { BasicEventData, TipoEvento } from "@/types/Events";
 
 const categorias = [
   { value: "musica", label: "Música", icon: Music },
@@ -25,14 +27,14 @@ const categorias = [
 export default function EventosPage() {
   const [filtroCategoria, setFiltroCategoria] = useState("");
 
-  // Simulated events data
-  const eventos = [
+  const eventos: BasicEventData[] = [
     {
       id: 1,
       nome: "Show de Rock",
       categoria: "musica",
       data: "15/08/2024",
       local: "Arena Minaçu",
+      tipo: "publico",
     },
     {
       id: 2,
@@ -40,6 +42,7 @@ export default function EventosPage() {
       categoria: "teatro",
       data: "20/08/2024",
       local: "Teatro Municipal",
+      tipo: "particular",
     },
     {
       id: 3,
@@ -47,6 +50,7 @@ export default function EventosPage() {
       categoria: "social",
       data: "25/08/2024",
       local: "Praça Central",
+      tipo: "publico",
     },
     {
       id: 4,
@@ -54,6 +58,7 @@ export default function EventosPage() {
       categoria: "musica",
       data: "30/08/2024",
       local: "Parque da Cidade",
+      tipo: "particular",
     },
     {
       id: 5,
@@ -61,6 +66,7 @@ export default function EventosPage() {
       categoria: "teatro",
       data: "05/09/2024",
       local: "Centro Cultural",
+      tipo: "privado",
     },
     {
       id: 6,
@@ -68,13 +74,42 @@ export default function EventosPage() {
       categoria: "social",
       data: "10/09/2024",
       local: "Avenida Principal",
+      tipo: "publico",
     },
   ];
 
   const eventosFiltrados =
     filtroCategoria === "all" || !filtroCategoria
       ? eventos
-      : eventos.filter((evento) => evento.categoria === filtroCategoria);
+      : eventos.filter((evento: { categoria: string; }) => evento.categoria === filtroCategoria);
+
+  const getEventoBadge = (tipo: TipoEvento) => {
+    switch (tipo) {
+      case 'publico':
+        return (
+          <Badge variant="default">
+            <Globe className="mr-1 h-3 w-3" />
+            Público
+          </Badge>
+        );
+      case 'privado':
+        return (
+          <Badge variant="secondary">
+            <Lock className="mr-1 h-3 w-3" />
+            Privado
+          </Badge>
+        );
+      case 'particular':
+        return (
+          <Badge variant="outline">
+            <Ticket className="mr-1 h-3 w-3" />
+            Ingresso
+          </Badge>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -130,7 +165,10 @@ export default function EventosPage() {
                 width="384"
               />
               <div className="p-4">
-                <h2 className="text-xl font-bold mb-2">{evento.nome}</h2>
+                <div className="flex justify-between items-start mb-2">
+                  <h2 className="text-xl font-bold">{evento.nome}</h2>
+                  {getEventoBadge(evento.tipo)}
+                </div>
                 <div className="flex items-center text-gray-500 mb-2">
                   <Calendar className="mr-2 h-4 w-4" />
                   <span>{evento.data}</span>
@@ -149,8 +187,8 @@ export default function EventosPage() {
         </div>
       </div>
 
-      {/* Footer Component */}
       <Footer/>
     </div>
   );
 }
+

@@ -23,7 +23,7 @@ export function withMiddleware(handler: Handler): Handler {
       // Continue para o handler
       await handler(req, res);
     } catch (error) {
-      res.status(500).json({ success: false, message: 'Erro interno do servidor', error: error.message });
+      res.status(500).json({ success: false, message: (error as Error).message });
     }
   };
 }

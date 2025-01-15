@@ -46,7 +46,7 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#" className="text-slate-400 hover:text-white transition-colors">
-                  Vender Ingressos
+                 Divulgar Evento
                 </a>
               </li>
               <li>
