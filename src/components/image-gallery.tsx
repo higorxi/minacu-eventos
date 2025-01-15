@@ -31,13 +31,15 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, eventName }) => {
       >
         {images.slice(0, 3).map((imagem, index) => (
           <TabsContent key={index} value={`foto${index + 1}`}>
-            <Image
-              src={imagem}
-              alt={`${eventName} - Foto ${index + 1}`}
-              className="w-full rounded-lg mb-4"
-              width={400}
-              height={800}
-            />
+            <div className="flex justify-center">
+              <Image
+                src={imagem}
+                alt={`${eventName} - Foto ${index + 1}`}
+                className="rounded-lg mb-4"
+                width={400}
+                height={800}
+              />
+            </div>
           </TabsContent>
         ))}
         <TabsList
@@ -61,9 +63,9 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, eventName }) => {
               <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all hover:bg-background/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">
                 +{images.length - 3}
               </DialogTrigger>
-              <DialogContent className="max-w-screen-xl w-screen h-screen max-h-screen p-0">
+              <DialogContent className="max-w-screen-xl w-screen h-[90vh] max-h-screen p-0">
                 {expandedImage ? (
-                  <div className="relative w-full h-full bg-black/95">
+                  <div className="relative w-full h-[90vh] bg-transparent">
                     <button
                       onClick={() => setExpandedImage(null)}
                       className="absolute top-4 right-4 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white z-10"
@@ -83,7 +85,9 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, eventName }) => {
                 ) : (
                   <>
                     <DialogHeader className="p-6">
-                      <DialogTitle>Todas as fotos do evento</DialogTitle>
+                      <DialogTitle className="text-center">
+                        Todas as fotos do evento
+                      </DialogTitle>
                     </DialogHeader>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-6 overflow-y-auto">
                       {images.map((imagem, index) => (

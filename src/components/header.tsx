@@ -192,7 +192,7 @@ const Header = () => {
             </Link>
 
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger asChild disabled={true}>
                 <Button variant="ghost" size="icon">
                   <Bell size={20} />
                 </Button>

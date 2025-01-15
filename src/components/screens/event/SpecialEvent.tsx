@@ -4,7 +4,8 @@ import { Ticket, Info, ThumbsUp } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function PrivateEventContent({ evento } : PrivateEventProps) {
+export default function SpecialEventContet({ evento } : PrivateEventProps) {
+  const [selectedTicket, setSelectedTicket] = useState("");
   const [cpf, setCpf] = useState("");
 
   return (
@@ -14,6 +15,31 @@ export default function PrivateEventContent({ evento } : PrivateEventProps) {
           <Ticket className="mr-2 h-6 w-6" />
           Ingressos
         </h2>
+        <div className="space-y-4">
+          {evento.ingressos.map((ingresso, index) => (
+            <div
+              key={index}
+              className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+            >
+              <h3 className="text-xl font-semibold mb-2">{ingresso.tipo}</h3>
+              <p className="text-lg font-bold text-primary mb-2">
+                {ingresso.preco}
+              </p>
+              <p className="text-gray-600 mb-4">{ingresso.descricao}</p>
+              <Button
+                onClick={() => setSelectedTicket(ingresso.tipo)}
+                variant={
+                  selectedTicket === ingresso.tipo ? "default" : "outline"
+                }
+                className="w-full"
+              >
+                {selectedTicket === ingresso.tipo
+                  ? "Selecionado"
+                  : "Selecionar"}
+              </Button>
+            </div>
+          ))}
+        </div>
         <div className="mt-4">
           <input
             type="text"
@@ -22,10 +48,13 @@ export default function PrivateEventContent({ evento } : PrivateEventProps) {
             onChange={(e) => setCpf(e.target.value)}
             className="w-full p-2 border rounded-md mb-2"
           />
+          <Button className="w-full" disabled={!cpf}>
+            Resgatar Ingresso
+          </Button>
         </div>
         <Link href={`${window.location.pathname}/checkout`} passHref>
-          <Button className="w-full mt-4">
-            Resgatar ingresso
+          <Button className="w-full mt-4" disabled={!selectedTicket}>
+            Comprar Ingresso
           </Button>
         </Link>
       </section>

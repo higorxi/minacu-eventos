@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Calendar, Clock, MapPin, AlertTriangle } from 'lucide-react';
+import { Calendar, Clock, MapPin, AlertTriangle } from "lucide-react";
 import Footer from "@/components/footer";
 import { useParams } from "next/navigation";
 import ImageGallery from "@/components/image-gallery";
@@ -16,20 +16,27 @@ import Header from "@/components/header";
 import PrivateEventContent from "@/components/screens/event/PrivateEvent";
 import PublicEventContent from "@/components/screens/event/PublicEvent";
 import { Evento } from "@/types/Events";
+import SpecialEventContet from "@/components/screens/event/SpecialEvent";
 
 export default function EventoDetalhesPage() {
-  const { id } = useParams();
-
+  const params = useParams();
+  const id = params?.id as string;
+  
   const evento: Evento = {
     id,
     nome: `Festival de Música de Minaçu ${id}`,
-    tipo: "publico", 
+    tipo: "publico",
     data: "15/08/2024",
     horario: "18:00",
     local: "Parque Municipal de Minaçu",
     descricao:
       "O maior festival de música do interior de Goiás, reunindo artistas locais e nacionais em uma celebração da cultura musical brasileira.",
-    imagens: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
+    imagens: [
+      "/placeholder.svg",
+      "/placeholder.svg",
+      "/placeholder.svg",
+      "/placeholder.svg",
+    ],
     ingressos: [
       {
         tipo: "Pista",
@@ -72,12 +79,28 @@ export default function EventoDetalhesPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header/>
+      <Header />
       <main className="container mx-auto px-4 py-8 mt-16">
         <h1 className="text-4xl font-bold mb-6">{evento.nome}</h1>
         <div className="mb-4">
-          <span className={`px-2 py-1 rounded ${evento.tipo === 'privado' ? 'bg-blue-500 text-white' : 'bg-green-500 text-white'}`}>
-            {evento.tipo === 'privado' ? 'Evento Privado' : 'Evento Público'}
+          <span
+            className={`px-2 py-1 rounded ${
+              evento.tipo === "privado"
+                ? "bg-blue-500 text-white"
+                : evento.tipo === "publico"
+                ? "bg-gray-500 text-white"
+                : evento.tipo === "particular"
+                ? "bg-green-500 text-white"
+                : ""
+            }`}
+          >
+            {evento.tipo === "privado"
+              ? "Evento Privado"
+              : evento.tipo === "publico"
+              ? "Evento Público"
+              : evento.tipo === "particular"
+              ? "Evento Particular"
+              : null}
           </span>
         </div>
 
@@ -130,11 +153,13 @@ export default function EventoDetalhesPage() {
           </div>
 
           <div>
-            {evento.tipo === 'privado' ? (
+            {evento.tipo === "privado" ? (
               <PrivateEventContent evento={evento} />
-            ) : (
+            ) : evento.tipo === "publico" ? (
               <PublicEventContent evento={evento} />
-            )}
+            ) : evento.tipo === "particular" ? (
+              <SpecialEventContet evento={evento} />
+            ) : null}
           </div>
         </div>
 
@@ -153,4 +178,3 @@ export default function EventoDetalhesPage() {
     </div>
   );
 }
-
