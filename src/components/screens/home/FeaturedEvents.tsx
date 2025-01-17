@@ -42,7 +42,9 @@ export default function FeaturedEventsSection({
                     <p className="text-sm text-gray-500">
                       Local: Centro de Eventos de Minaçu
                     </p>
+                    <Link href={`/eventos/${index}`}>
                     <Button className="mt-4 w-full">Comprar Ingresso</Button>
+                    </Link>
                   </div>
                 </div>
               ))}
