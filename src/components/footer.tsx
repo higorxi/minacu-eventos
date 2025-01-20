@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Facebook, 
   Instagram, 
@@ -7,9 +7,32 @@ import {
   Phone, 
   MapPin, 
 } from 'lucide-react';
+import { postSubscriber } from '@/app/service/email/email';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState('');
+
+  const handleSubscribe = async () => {
+    if (!email) {
+      alert('Por favor, insira um e-mail válido.');
+      return;
+    }
+
+    try {
+      const response = await postSubscriber(email)
+
+      if (response) {
+        alert('Inscrição realizada com sucesso!');
+        setEmail('');
+      } else {
+        alert('Falha ao realizar inscrição. Tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro ao inscrever-se:', error);
+      alert('Ocorreu um erro. Por favor, tente novamente.');
+    }
+  };
 
   return (
     <footer className="bg-slate-900 text-slate-200 pt-12 pb-6">
@@ -46,7 +69,7 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#" className="text-slate-400 hover:text-white transition-colors">
-                 Divulgar Evento
+                  Divulgar Evento
                 </a>
               </li>
               <li>
@@ -120,9 +143,14 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Seu melhor e-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="flex-1 px-4 py-2 rounded bg-slate-800 border border-slate-700 focus:outline-none focus:border-blue-500"
               />
-              <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors">
+              <button
+                className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors"
+                onClick={handleSubscribe}
+              >
                 Inscrever
               </button>
             </div>

@@ -1,7 +1,9 @@
+import { getFeaturedEvents } from "@/app/service/events/events";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 interface EventImage {
   id: string;
@@ -15,6 +17,15 @@ interface FeaturedEventsSectionProps {
 export default function FeaturedEventsSection({
   eventImages,
 }: FeaturedEventsSectionProps) {
+  
+      useEffect(() => {
+        const buscarEvento = async () => {
+          const response = await getFeaturedEvents()
+          console.log(response)
+        }
+        buscarEvento()
+      },[])
+
     return(
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6 mx-auto">

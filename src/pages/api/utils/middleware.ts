@@ -5,6 +5,7 @@ export type Handler = (req: NextApiRequest, res: NextApiResponse) => Promise<voi
 export function withMiddleware(handler: Handler): Handler {
   return async (req, res) => {
     try {
+      console.log("TESTE MIDDLEWARE")
       
       /* Exemplo de autenticação
       const token = req.headers.authorization;

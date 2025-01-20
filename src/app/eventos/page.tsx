@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,6 +17,7 @@ import Image from "next/image";
 import Header from "@/components/header";
 import { Badge } from "@/components/ui/badge";
 import { BasicEventData, TipoEvento } from "@/types/Events";
+import { getAllEvents } from "../service/events/events";
 
 const categorias = [
   { value: "musica", label: "Música", icon: Music },
@@ -110,6 +111,14 @@ export default function EventosPage() {
         return null;
     }
   };
+
+  useEffect(() => {
+    const buscarEventos = async () => {
+      const response = await getAllEvents()
+      console.log(response)
+    }
+    buscarEventos()
+  },[])
 
   return (
     <div className="flex flex-col min-h-screen">

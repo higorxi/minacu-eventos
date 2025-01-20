@@ -9,49 +9,113 @@ generator client {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  tickets   Ticket[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int      @id @default(autoincrement()) // Identificador único do usuário
+  email      String   @unique // Email do usuário, usado como identificador único
+  password   String // Senha do usuário para autenticação
+  fullName   String // Nome completo do usuário
+  phone      String? // Telefone do usuário (opcional)
+  cpf        String   @unique // CPF único para identificação no Brasil
+  externalId String   @unique // ID externo para transferências, formato único (ex.: xxxx-xxxx)
+  tickets    Ticket[] // Lista de ingressos associados ao usuário
+  createdAt  DateTime @default(now()) // Data de criação do registro
+  updatedAt  DateTime @updatedAt // Data da última atualização do registro
 }
 
 model Company {
-  id        Int      @id @default(autoincrement())
-  name      String
-  address   String
-  phone     String
-  email     String   @unique
-  events    Event[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  tickets    Ticket[]
+  id        Int      @id @default(autoincrement()) // Identificador único da empresa
+  name      String   // Nome da empresa
+  address   String   // Endereço da empresa
+  phone     String   // Telefone de contato da empresa
+  email     String   @unique // Email único da empresa
+  cnpj      String   @unique // CNPJ único da empresa
+  password  String   // Senha da empresa para autenticação
+  events    Event[]  // Lista de eventos organizados pela empresa
+  createdAt DateTime @default(now()) // Data de criação do registro
+  updatedAt DateTime @updatedAt // Data da última atualização do registro
+  tickets   Ticket[] // Lista de ingressos vendidos pela empresa
+}
+
+
+enum EventType {
+  publico // Evento público
+  privado // Evento privado
+  particular // Evento particular
+}
+
+enum EventStatus {
+  active // Evento ativo
+  completed // Evento concluído
+  canceled // Evento cancelado
+  paused // Evento pausado
+}
+
+model Location {
+  id            Int      @id @default(autoincrement()) // Identificador único do local
+  name          String // Nome do local (ex.: "Parque Municipal de Minaçu")
+  capacity      Int? // Capacidade máxima de pessoas no local (opcional)
+  structure     String? // Informações sobre a estrutura do local (opcional)
+  accessibility String? // Detalhes sobre acessibilidade no local (opcional)
+  address       String // Endereço completo para localização via Google Maps
+  latitude      Float // Latitude do local
+  longitude     Float // Longitude do local
+  createdAt     DateTime @default(now()) // Data de criação do registro
+  updatedAt     DateTime @updatedAt // Data da última atualização do registro
+  events        Event[]  @relation("EventLocation") // Lista de eventos realizados neste local
 }
 
 model Event {
-  id          Int      @id @default(autoincrement())
-  name        String
-  date        DateTime
-  location    String
-  description String?
-  companyId   Int
-  company     Company  @relation(fields: [companyId], references: [id])
-  tickets     Ticket[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id          Int          @id @default(autoincrement()) // Identificador único do evento
+  name        String // Nome do evento
+  date        DateTime // Data e hora do evento
+  locationId  Int // ID do local onde o evento será realizado
+  location    Location     @relation("EventLocation", fields: [locationId], references: [id]) // Relacionamento com o local do evento
+  description String? // Descrição do evento (opcional)
+  companyId   Int // ID da empresa organizadora
+  company     Company      @relation(fields: [companyId], references: [id]) // Relacionamento com a empresa organizadora
+  tickets     Ticket[] // Lista de ingressos vendidos para o evento
+  ticketTypes TicketType[] // Lista de tipos de ingressos disponíveis para o evento
+  createdAt   DateTime     @default(now()) // Data de criação do registro
+  updatedAt   DateTime     @updatedAt // Data da última atualização do registro
+  isFeatured  Boolean      @default(false) // Indica se o evento é destaque
+  category    String? // Categoria do evento (opcional)
+  type        EventType    @default(publico) // Tipo do evento (público, privado ou particular)
+  capacity    Int? // Capacidade máxima de pessoas para o evento (opcional)
+  status      EventStatus  @default(active) // Status atual do evento
+}
+
+model TicketType {
+  id          Int      @id @default(autoincrement()) // Identificador único do tipo de ingresso
+  name        String // Nome do tipo de ingresso (ex.: "VIP", "Área Normal", "Backstage")
+  eventId     Int // ID do evento associado
+  event       Event    @relation(fields: [eventId], references: [id]) // Relacionamento com o evento
+  price       Float // Valor do ingresso
+  description String? // Detalhes do tipo de ingresso (opcional)
+  tickets     Ticket[] // Lista de ingressos vendidos deste tipo
+  createdAt   DateTime @default(now()) // Data de criação do registro
+  updatedAt   DateTime @updatedAt // Data da última atualização do registro
 }
 
 model Ticket {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  eventId   Int
-  event     Event    @relation(fields: [eventId], references: [id])
-  companyId Int
-  company   Company  @relation(fields: [companyId], references: [id])
-  price     Float
-  info      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           Int        @id @default(autoincrement()) // Identificador único do ingresso
+  userId       Int // ID do usuário que comprou o ingresso
+  user         User       @relation(fields: [userId], references: [id]) // Relacionamento com o usuário
+  eventId      Int // ID do evento associado ao ingresso
+  event        Event      @relation(fields: [eventId], references: [id]) // Relacionamento com o evento
+  ticketTypeId Int // ID do tipo de ingresso
+  ticketType   TicketType @relation(fields: [ticketTypeId], references: [id]) // Relacionamento com o tipo de ingresso
+  companyId    Int // ID da empresa que vendeu o ingresso
+  company      Company    @relation(fields: [companyId], references: [id]) // Relacionamento com a empresa
+  createdAt    DateTime   @default(now()) // Data de criação do registro
+  updatedAt    DateTime   @updatedAt // Data da última atualização do registro
 }
+
+
+
+
+
+model Subscriber {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+

@@ -17,6 +17,8 @@ import PrivateEventContent from "@/components/screens/event/PrivateEvent";
 import PublicEventContent from "@/components/screens/event/PublicEvent";
 import { Evento } from "@/types/Events";
 import SpecialEventContet from "@/components/screens/event/SpecialEvent";
+import { useEffect } from "react";
+import { getEventById } from "@/app/service/events/events";
 
 export default function EventoDetalhesPage() {
   const params = useParams();
@@ -76,6 +78,14 @@ export default function EventoDetalhesPage() {
       acessibilidade: "Rampas de acesso e áreas reservadas para cadeirantes",
     },
   };
+
+    useEffect(() => {
+      const buscarEvento = async () => {
+        const response = await getEventById(id)
+        console.log(response)
+      }
+      buscarEvento()
+    },[])
 
   return (
     <div className="flex flex-col min-h-screen">

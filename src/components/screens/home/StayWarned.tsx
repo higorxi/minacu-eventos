@@ -1,6 +1,36 @@
+import { postSubscriber } from "@/app/service/email/email";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 export default function StayWarnedSection() {
+  const [email, setEmail] = useState("");
+
+  const handleEmailSubmission = (event: React.FormEvent) => {
+    event.preventDefault(); 
+    if (!email.trim()) {
+      alert("Por favor, insira um e-mail válido!");
+      return;
+    }
+    subscribeEmail(email.trim());
+  };
+
+  const subscribeEmail = async (email: string) => {
+    try {
+      // Corrigir o tratamento de erros
+      const response = await postSubscriber(email)
+      if (response) {
+        alert("E-mail cadastrado com sucesso!");
+        setEmail("");
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message || "Erro ao cadastrar o e-mail.");
+      }
+    } catch (error) {
+      console.error("Erro ao cadastrar e-mail:", error);
+      alert("Ocorreu um erro. Tente novamente mais tarde.");
+    }
+  };
+
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-black text-white">
       <div className="container px-4 md:px-6 mx-auto flex flex-col items-center justify-center">
@@ -13,11 +43,16 @@ export default function StayWarnedSection() {
           </p>
         </div>
         <div className="w-full max-w-sm space-y-2">
-          <form className="flex flex-col space-y-2 justify-center">
+          <form
+            onSubmit={handleEmailSubmission}
+            className="flex flex-col space-y-2 justify-center"
+          >
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Seu melhor e-mail"
-              className="flex-1 px-4 py-2 mb-2 rounded bg-slate-100 border border-slate-700 focus:outline-none focus:border-blue-500"
+              className="flex-1 px-4 py-2 mb-2 rounded bg-primary border border-slate-700 focus:outline-none focus:border-blue-500"
             />
             <Button type="submit" className="w-full">
               Cadastrar

@@ -22,21 +22,6 @@ export const getAllEvents = async (req: NextApiRequest, res: NextApiResponse): P
   }
 };
 
-// Criar um novo evento
-export const createEvent = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-  try {
-    const { name, date, location, description, companyId } = req.body;
-
-    const event = await prisma.event.create({
-      data: { name, date: new Date(date), location, description, companyId },
-    });
-
-    res.status(201).json({ success: true, data: event });
-  } catch (error) {
-    handleError(error, res);
-  }
-};
-
 // Buscar evento por ID
 export const getEventById = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   const { id } = req.query;
@@ -57,33 +42,16 @@ export const getEventById = async (req: NextApiRequest, res: NextApiResponse): P
   }
 };
 
-// Atualizar evento por ID
-export const updateEventById = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-  const { id } = req.query;
-  const { name, date, location, description } = req.body;
 
+// Buscar eventos em destaque
+export const getFeaturedEvents = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {
-    const event = await prisma.event.update({
-      where: { id: Number(id) },
-      data: { name, date: new Date(date), location, description },
+    const featuredEvents = await prisma.event.findMany({
+      where: {
+        isFeatured: true,
+      },
     });
-
-    res.status(200).json({ success: true, data: event });
-  } catch (error) {
-    handleError(error, res);
-  }
-};
-
-// Deletar evento por ID
-export const deleteEventById = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-  const { id } = req.query;
-
-  try {
-    await prisma.event.delete({
-      where: { id: Number(id) },
-    });
-
-    res.status(204).end();
+    res.status(200).json({ success: true, data: featuredEvents });
   } catch (error) {
     handleError(error, res);
   }
